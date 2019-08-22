@@ -1,0 +1,17 @@
+.main-view {
+  width: 100%;
+  height: 100%;
+  padding-top: 5%;
+  .main-title {
+    text-align: center;
+  }
+
+  .cards-container {
+    display: flex;
+    align-content: space-around;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 5%;
+  }
+}
