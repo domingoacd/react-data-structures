@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from "react-router-dom";
+
 import '../sass/card.scss'
 
 export default class Card extends React.Component {
@@ -14,10 +16,10 @@ export default class Card extends React.Component {
     const {title, image, link} = this.state;
     return (
       <div className="card">
-        <a href={link} className="link">
+        <Link to={link} className="link">
           <img src={image} alt={title} className="image"/>
           <h3 className="title">{title}</h3>
-        </a>
+        </Link>
       </div>
     );
   }

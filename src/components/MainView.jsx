@@ -9,19 +9,19 @@ export default class View extends React.Component {
         {
           "name": "linked list",
           "thumb": "",
-          "link": "",
+          "link": "linked-list",
           "key": '000' 
         },
         {
           "name": "stack",
           "thumb": "",
-          "link": "",
+          "link": "stack",
           "key": '001' 
         },
         {
           "name": "qeue",
           "thumb": "",
-          "link": "",
+          "link": "queue",
           "key": '002' 
         }
       ]
