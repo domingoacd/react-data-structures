@@ -11,4 +11,53 @@
     }
 }
 
+.list_element {
+    position: relative;
+    width: 7rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    padding: 0 1%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #000;
+    
+    .element-data {
+        font-size: 2rem;
+    }
+
+    .toggle_menu {
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        &:hover {
+            &+.menu {
+                width: 15rem;
+                border: 1px solid #000;
+            }
+        }
+    }
+    .menu {
+        position: absolute;
+        left: 105%;
+        top: 0;
+        z-index: 2;
+        width: 0;
+        overflow: hidden;
+        transition: width 0.5s;
+        background-color: #fff;
+        li {
+            padding: 0.5rem;
+            font-size: 1.2rem;
+            list-style: none;
+            &:hover {
+                background-color: #000;
+                color: #fff;
+            }
+        }
+    }
+}
+
+
 

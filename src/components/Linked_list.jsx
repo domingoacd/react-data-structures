@@ -1,5 +1,7 @@
 import React from 'react';
 import '../sass/linked_list.scss';
+import List_element from './List_element';
+
 export default class Linked_list extends React.Component {
 
   constructor(props) {
@@ -8,10 +10,15 @@ export default class Linked_list extends React.Component {
       list: {
         key: 0,
         data: "12",
+        translated_pixels: "12px",
         next: {
+          key: 1,
           data: "02",
+          translated_pixels: "36px",
           next: {
+            key: 2,
             data: "35",
+            translated_pixels: "60px",
             next: null
           }
         }
@@ -24,8 +31,12 @@ export default class Linked_list extends React.Component {
     let currentElement = elements;
     let htmlElements = [];
     while (currentElement !== null) {
-      const html = <div>{currentElement.data}</div>
-      htmlElements.push(html);
+      htmlElements.push(
+        <List_element 
+          key={currentElement.key} 
+          data={currentElement.data} 
+          translated={currentElement.translated_pixels}
+        />);
       currentElement = currentElement.next;
     }
     return htmlElements;

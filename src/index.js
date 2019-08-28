@@ -11,7 +11,7 @@ class Routing extends React.Component {
     render () {
         return (
             <Router>
-                <div class="rout_container">
+                <div className="rout_container">
                     <Route exact path="/" component={View}/>
                     <Route exact path="/linked-list" component={Linked_list}/>
                     <Route exact path="/stack" component={Stack}/>
