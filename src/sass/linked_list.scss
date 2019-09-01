@@ -22,7 +22,16 @@
     justify-content: space-between;
     align-items: center;
     border: 1px solid #000;
-    
+
+    &.active {
+        z-index: 3;
+        
+        .menu {
+            width: 15rem;
+            border: 1px solid #000;
+        }
+    }
+
     .element-data {
         font-size: 2rem;
     }
@@ -31,12 +40,6 @@
         cursor: pointer;
         position: relative;
         z-index: 1;
-        &:hover {
-            &+.menu {
-                width: 15rem;
-                border: 1px solid #000;
-            }
-        }
     }
     .menu {
         position: absolute;
@@ -51,6 +54,7 @@
             padding: 0.5rem;
             font-size: 1.2rem;
             list-style: none;
+            cursor: pointer;
             &:hover {
                 background-color: #000;
                 color: #fff;

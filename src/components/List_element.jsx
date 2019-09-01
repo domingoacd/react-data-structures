@@ -6,20 +6,29 @@ export default class List_element extends React.Component {
     super(props);
     this.state = {
       data: props.data,
-      translated: props.translated
+      translated: props.translated,
+      class: ""
     }
+
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
   toggleMenu() {
+    const classList = this.state.class;
     console.log(this);
+    this.setState({
+        class: classList == "" ? "active" : ""
+    });
   }
 
   render() {
       const style = {
           transform: `translateX(${this.state.translated})`
       }
+      const classes = this.state.class;
+
     return (
-      <div className="list_element" style={style}>
+      <div className={`list_element ${classes}`} style={style}>
           <h3 className="element-data">{this.state.data}</h3>
           <div className="toggle_menu" onClick={this.toggleMenu}>
               >
