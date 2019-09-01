@@ -24,6 +24,40 @@ export default class Linked_list extends React.Component {
         }
       }
     }
+    this.addElementAbove = this.addElementAbove.bind(this);
+  }
+
+  addElementAbove(elementId) {
+    
+    let list = this.state.list;
+    let currentElement = list;
+    let prevElement = "";
+    let newElement = {
+      key: 3,
+      data: "86",
+      translated_pixels: "72px",
+      next: null
+    }
+    //let newList = {}
+
+    while(currentElement !== null) {
+      if (currentElement.key == elementId) {
+        newElement.next = currentElement;
+        if (prevElement == "") {
+          list = newElement;
+        } else {
+          prevElement.next = newElement;
+        }
+        break;
+      } else {
+        prevElement = currentElement;
+        currentElement = currentElement.next;
+      }
+    }
+    this.setState({
+      list: list
+    });
+      
   }
 
   getListElements() {
@@ -33,9 +67,11 @@ export default class Linked_list extends React.Component {
     while (currentElement !== null) {
       htmlElements.push(
         <List_element 
+          id={currentElement.key}
           key={currentElement.key} 
           data={currentElement.data} 
           translated={currentElement.translated_pixels}
+          addElementAbove={this.addElementAbove}
         />);
       currentElement = currentElement.next;
     }

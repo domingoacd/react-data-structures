@@ -5,20 +5,32 @@ export default class List_element extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: props.id,
       data: props.data,
       translated: props.translated,
       class: ""
     }
 
     this.toggleMenu = this.toggleMenu.bind(this);
+    this.elementAbove = this.elementAbove.bind(this);
+    this.elementBelow = this.elementBelow.bind(this);
   }
 
   toggleMenu() {
     const classList = this.state.class;
-    console.log(this);
     this.setState({
         class: classList == "" ? "active" : ""
     });
+  }
+  
+  elementAbove() {
+    const elementId = this.props.id;
+    this.props.addElementAbove(elementId);
+  }
+
+  elementBelow() {
+    const elementId = this.props.id;
+    this.props.addElementAbove(elementId);
   }
 
   render() {
@@ -34,9 +46,9 @@ export default class List_element extends React.Component {
               >
           </div>
               <ul className="menu">
-                  <li>Add element above</li>
-                  <li>Add element below</li>
-                  <li>Delete element</li>
+                  <li onClick={this.elementAbove}>Add element above</li>
+                  <li onClick={this.elementBelow}>Add element below</li>
+                  <li onClick={this.deleteElement}>Delete element</li>
               </ul>
       </div>
     );
