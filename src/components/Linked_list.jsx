@@ -8,6 +8,8 @@ export default class Linked_list extends React.Component {
     super(props);
     this.state = {
       showModal: false,
+      elementSelectedId: "",
+      newElementPosition: "",
       list: {
         key: 0,
         data: "12",
@@ -25,7 +27,8 @@ export default class Linked_list extends React.Component {
         }
       }
     }
-    this.addElementAbove = this.addElementAbove.bind(this);
+    this.addElement = this.addElement.bind(this);
+    this.activateModal = this.activateModal.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
@@ -36,6 +39,14 @@ export default class Linked_list extends React.Component {
     })
   }
 
+  activateModal(elementClickedId, positionWhereToAdd) {
+    this.setState({
+      showModal: true,
+      elementSelectedId: elementClickedId,
+      newElementPosition: positionWhereToAdd
+    });
+  }
+  
   showModal() {
     if(this.state.showModal) {
       return (
@@ -47,7 +58,7 @@ export default class Linked_list extends React.Component {
                 <input type="text"/>
               </label>
               <div className="buttons-container">
-                <button>Add</button>
+                <button onClick={this.addElement}>Add</button>
                 <button onClick={this.hideModal}>Cancel</button>
               </div>
             </form>
@@ -57,38 +68,39 @@ export default class Linked_list extends React.Component {
     }
   }
 
-  addElementAbove(elementId) {
-    this.setState({
-      showModal: true
-    });
-    let list = this.state.list;
-    let currentElement = list;
-    let prevElement = "";
-    let newElement = {
-      key: 3,
-      data: "86",
-      translated_pixels: "72px",
-      next: null
-    }
-    //let newList = {}
+  addElement() {
+    const elementId = this.state.elementSelectedId;
+    const elementPosition = this.state.newElementPosition;
+    console.log(elementId, elementPosition);
 
-    while(currentElement !== null) {
-      if (currentElement.key === elementId) {
-        newElement.next = currentElement;
-        if (prevElement === "") {
-          list = newElement;
-        } else {
-          prevElement.next = newElement;
-        }
-        break;
-      } else {
-        prevElement = currentElement;
-        currentElement = currentElement.next;
-      }
-    }
-    this.setState({
-      list: list
-    });
+    // let list = this.state.list;
+    // let currentElement = list;
+    // let prevElement = "";
+    // let newElement = {
+    //   key: 3,
+    //   data: "86",
+    //   translated_pixels: "72px",
+    //   next: null
+    // }
+    // //let newList = {}
+
+    // while(currentElement !== null) {
+    //   if (currentElement.key === elementId) {
+    //     newElement.next = currentElement;
+    //     if (prevElement === "") {
+    //       list = newElement;
+    //     } else {
+    //       prevElement.next = newElement;
+    //     }
+    //     break;
+    //   } else {
+    //     prevElement = currentElement;
+    //     currentElement = currentElement.next;
+    //   }
+    // }
+    // this.setState({
+    //   list: list
+    // });
       
   }
 
@@ -103,7 +115,7 @@ export default class Linked_list extends React.Component {
           key={currentElement.key} 
           data={currentElement.data} 
           translated={currentElement.translated_pixels}
-          addElementAbove={this.addElementAbove}
+          activateModal={this.activateModal}
         />);
       currentElement = currentElement.next;
     }

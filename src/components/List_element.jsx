@@ -12,8 +12,7 @@ export default class List_element extends React.Component {
     }
 
     this.toggleMenu = this.toggleMenu.bind(this);
-    this.elementAbove = this.elementAbove.bind(this);
-    this.elementBelow = this.elementBelow.bind(this);
+    this.activateModal = this.activateModal.bind(this);
   }
 
   toggleMenu() {
@@ -23,9 +22,10 @@ export default class List_element extends React.Component {
     });
   }
   
-  elementAbove() {
+  activateModal(e) {
     const elementId = this.props.id;
-    this.props.addElementAbove(elementId);
+    const addPosition = e.target.dataset.add;
+    this.props.activateModal(elementId, addPosition);
   }
 
   elementBelow() {
@@ -46,8 +46,8 @@ export default class List_element extends React.Component {
               >
           </div>
               <ul className="menu">
-                  <li onClick={this.elementAbove}>Add element above</li>
-                  <li onClick={this.elementBelow}>Add element below</li>
+                  <li onClick={this.activateModal} data-add="above">Add element above</li>
+                  <li onClick={this.activateModal} data-add="below">Add element below</li>
                   <li onClick={this.deleteElement}>Delete element</li>
               </ul>
       </div>
