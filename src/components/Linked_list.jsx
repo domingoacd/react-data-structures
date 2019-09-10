@@ -27,6 +27,13 @@ export default class Linked_list extends React.Component {
     }
     this.addElementAbove = this.addElementAbove.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+  }
+
+  hideModal(e) {
+    this.setState({
+      showModal: false
+    })
   }
 
   showModal() {
@@ -41,7 +48,7 @@ export default class Linked_list extends React.Component {
               </label>
               <div className="buttons-container">
                 <button>Add</button>
-                <button>Cancel</button>
+                <button onClick={this.hideModal}>Cancel</button>
               </div>
             </form>
           </div>
