@@ -7,6 +7,7 @@ export default class Linked_list extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showModal: false,
       list: {
         key: 0,
         data: "12",
@@ -25,10 +26,34 @@ export default class Linked_list extends React.Component {
       }
     }
     this.addElementAbove = this.addElementAbove.bind(this);
+    this.showModal = this.showModal.bind(this);
+  }
+
+  showModal() {
+    if(this.state.showModal) {
+      return (
+        <div className="overlay">
+          <div className="modal">
+            <h3>Add Element</h3>
+            <form>
+              <label htmlFor="">Data:
+                <input type="text"/>
+              </label>
+              <div className="buttons-container">
+                <button>Add</button>
+                <button>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
   }
 
   addElementAbove(elementId) {
-    
+    this.setState({
+      showModal: true
+    });
     let list = this.state.list;
     let currentElement = list;
     let prevElement = "";
@@ -41,9 +66,9 @@ export default class Linked_list extends React.Component {
     //let newList = {}
 
     while(currentElement !== null) {
-      if (currentElement.key == elementId) {
+      if (currentElement.key === elementId) {
         newElement.next = currentElement;
-        if (prevElement == "") {
+        if (prevElement === "") {
           list = newElement;
         } else {
           prevElement.next = newElement;
@@ -81,6 +106,7 @@ export default class Linked_list extends React.Component {
   render() {
     return (
       <div className="linked_list">
+        {this.showModal()}
         <h1>Linked list</h1>
         <div className="list-container">
           {this.getListElements()}

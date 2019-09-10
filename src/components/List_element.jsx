@@ -19,7 +19,7 @@ export default class List_element extends React.Component {
   toggleMenu() {
     const classList = this.state.class;
     this.setState({
-        class: classList == "" ? "active" : ""
+        class: classList === "" ? "active" : ""
     });
   }
   
