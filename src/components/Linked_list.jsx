@@ -10,6 +10,7 @@ export default class Linked_list extends React.Component {
       showModal: false,
       elementSelectedId: "",
       newElementPosition: "",
+      inputValue: "",
       list: {
         key: 0,
         data: "12",
@@ -31,11 +32,21 @@ export default class Linked_list extends React.Component {
     this.activateModal = this.activateModal.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.addElementAbove = this.addElementAbove.bind(this);
+    this.addElementBelow = this.addElementBelow.bind(this);
   }
 
   hideModal(e) {
     this.setState({
+      inputValue: "",
       showModal: false
+    })
+  }
+
+  handleInputChange(e) {
+    this.setState({
+      inputValue: e.target.value
     })
   }
 
@@ -55,7 +66,7 @@ export default class Linked_list extends React.Component {
             <h3>Add Element</h3>
             <form>
               <label htmlFor="">Data:
-                <input type="text"/>
+                <input type="text" name="data" onChange={this.handleInputChange}/>
               </label>
               <div className="buttons-container">
                 <button onClick={this.addElement}>Add</button>
@@ -68,40 +79,52 @@ export default class Linked_list extends React.Component {
     }
   }
 
-  addElement() {
+  addElementAbove(id, data) {
+    console.log(data);
+     let list = this.state.list;
+     let currentElement = list;
+     let prevElement = "";
+     let newElement = {
+       key: id,
+       data: data,
+       translated_pixels: "72px",
+       next: null
+     }
+     let newList = {}
+
+    //  while(currentElement !== null) {
+    //    if (currentElement.key === id) {
+    //      newElement.next = currentElement;
+    //      if (prevElement === "") {
+    //        list = newElement;
+    //      } else {
+    //        prevElement.next = newElement;
+    //      }
+    //      break;
+    //    } else {
+    //      prevElement = currentElement;
+    //      currentElement = currentElement.next;
+    //    }
+    //  }
+     this.setState({
+       list: list
+     });
+  }
+
+  addElementBelow(id, data) {
+
+  }
+  addElement(e) {
+    e.preventDefault();
     const elementId = this.state.elementSelectedId;
     const elementPosition = this.state.newElementPosition;
-    console.log(elementId, elementPosition);
-
-    // let list = this.state.list;
-    // let currentElement = list;
-    // let prevElement = "";
-    // let newElement = {
-    //   key: 3,
-    //   data: "86",
-    //   translated_pixels: "72px",
-    //   next: null
-    // }
-    // //let newList = {}
-
-    // while(currentElement !== null) {
-    //   if (currentElement.key === elementId) {
-    //     newElement.next = currentElement;
-    //     if (prevElement === "") {
-    //       list = newElement;
-    //     } else {
-    //       prevElement.next = newElement;
-    //     }
-    //     break;
-    //   } else {
-    //     prevElement = currentElement;
-    //     currentElement = currentElement.next;
-    //   }
-    // }
-    // this.setState({
-    //   list: list
-    // });
-      
+    const dataToSave = this.state.inputValue;
+    
+    if(elementPosition === "above") {
+      this.addElementAbove(elementId, dataToSave);
+    } else {
+      this.addElementBelow(elementId, dataToSave);
+    } 
   }
 
   getListElements() {
