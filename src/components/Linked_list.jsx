@@ -92,9 +92,32 @@ export default class Linked_list extends React.Component {
      }
      let newList = {}
 
+     while (currentElement !== null) {
+       prevElement = currentElement;
+       if (currentElement.key === id) {
+         newElement.next = currentElement.next;
+         newElement.translated_pixels = currentElement.translated_pixels;
+         currentElement = newElement;
+         break;
+        } else {
+          currentElement = currentElement.next;
+       }
+
+       if(!newList.hasOwnProperty('next')) {
+         newList = prevElement;
+       }
+     }
+
+
+
+
+
+
+
     //  while(currentElement !== null) {
     //    if (currentElement.key === id) {
-    //      newElement.next = currentElement;
+    //      newElement.next = currentElement.next;
+    //      newElement.translated_pixels = currentElement.translated_pixels;
     //      if (prevElement === "") {
     //        list = newElement;
     //      } else {
@@ -107,7 +130,7 @@ export default class Linked_list extends React.Component {
     //    }
     //  }
      this.setState({
-       list: list
+       list: newList
      });
   }
 
