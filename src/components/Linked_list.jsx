@@ -35,6 +35,7 @@ export default class Linked_list extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addElementAbove = this.addElementAbove.bind(this);
     this.addElementBelow = this.addElementBelow.bind(this);
+    this.getNewId = this.getNewId.bind(this);
   }
 
   hideModal(e) {
@@ -79,10 +80,27 @@ export default class Linked_list extends React.Component {
     }
   }
 
+  getNewId() {
+    let currentElement = this.state.list;
+    let currentId = this.state.list.key;
+    let newId = 0;
+
+    while(currentElement !== null) {
+      currentElement = currentElement.next;
+      if (currentElement !== null) {
+        currentId = currentElement.key < currentId ? currentId : currentElement.key;
+      }
+    }
+
+    newId = currentId + 1;
+    return newId;
+  }
+
   addElementAbove(id, data) {
-    console.log(data);
-     let list = this.state.list;
-     let currentElement = list;
+     const nextId = this.getNewId(); 
+     let currentList = this.state.list;
+     let listAux = currentList;
+     let currentElement = currentList;
      let prevElement = "";
      let newElement = {
        key: id,
@@ -90,48 +108,26 @@ export default class Linked_list extends React.Component {
        translated_pixels: "72px",
        next: null
      }
-     let newList = {}
 
-     while (currentElement !== null) {
-       prevElement = currentElement;
-       if (currentElement.key === id) {
-         newElement.next = currentElement.next;
-         newElement.translated_pixels = currentElement.translated_pixels;
-         currentElement = newElement;
-         break;
-        } else {
-          currentElement = currentElement.next;
-       }
-
-       if(!newList.hasOwnProperty('next')) {
-         newList = prevElement;
-       }
-     }
-
-
-
-
-
-
-
-    //  while(currentElement !== null) {
-    //    if (currentElement.key === id) {
-    //      newElement.next = currentElement.next;
-    //      newElement.translated_pixels = currentElement.translated_pixels;
-    //      if (prevElement === "") {
-    //        list = newElement;
-    //      } else {
-    //        prevElement.next = newElement;
-    //      }
-    //      break;
-    //    } else {
-    //      prevElement = currentElement;
-    //      currentElement = currentElement.next;
-    //    }
-    //  }
-     this.setState({
-       list: newList
-     });
+       while (currentElement !== null) {
+         if (currentElement.key === id) {
+           newElement.key = nextId;
+           newElement.next = currentElement;
+           newElement.translated_pixels = currentElement.translated_pixels;
+          if(prevElement === "") {
+            currentList = newElement;
+          } else {
+            prevElement.next = newElement;
+          }
+           break;
+          } else {
+            prevElement = currentElement;
+            currentElement = currentElement.next;
+          }
+        }
+        this.setState({
+          list: currentList
+        });
   }
 
   addElementBelow(id, data) {
