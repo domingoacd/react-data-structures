@@ -36,6 +36,7 @@ export default class Linked_list extends React.Component {
     this.addElementAbove = this.addElementAbove.bind(this);
     this.addElementBelow = this.addElementBelow.bind(this);
     this.getNewId = this.getNewId.bind(this);
+    this.moveBelowElements = this.moveBelowElements.bind(this);
   }
 
   hideModal(e) {
@@ -51,6 +52,23 @@ export default class Linked_list extends React.Component {
     })
   }
 
+  moveBelowElements(elementId) {
+    const elements = this.state.list;
+    const basePixels = 12;
+    let currentElement = elements;
+    let baseElementWasFound = false;
+    let prevAmountOfPixels = "";
+    while (currentElement !== null) {
+      if(baseElementWasFound) {
+        prevAmountOfPixels = Number(currentElement.translated_pixels.match(/\d+/g)[0]);
+        currentElement.translated_pixels = (prevAmountOfPixels + basePixels) + "px";
+      }
+      if(currentElement.key == elementId) {
+        baseElementWasFound = true;
+      }
+      currentElement = currentElement.next;
+    }
+  }
   activateModal(elementClickedId, positionWhereToAdd) {
     this.setState({
       showModal: true,
@@ -119,6 +137,7 @@ export default class Linked_list extends React.Component {
           } else {
             prevElement.next = newElement;
           }
+          this.moveBelowElements(newElement.key);
            break;
           } else {
             prevElement = currentElement;
